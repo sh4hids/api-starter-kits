@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Installing dependencies...
+      - npm install
+  build:
+    commands:
+      - cp .env.tst .env
+      - echo Testing started
+      - npm run test
+      - echo Testing finished
+      - rm .env
+      - cp .env.$ENV .env
+      - echo Build started
+      - npm run build
+  post_build:
+    commands:
+      - rm -rf node_modules
+      - npm install --production
+artifacts:
+  files:
+    - .env
+    - package.json
+    - build/**/*
+    - node_modules/**/*
