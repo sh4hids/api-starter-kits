@@ -1,3 +1,5 @@
+import * as db from './db';
+
 require('dotenv').config();
 
 export const appHost = process.env.HOST || 'localhost';
@@ -38,3 +40,5 @@ export const statusCodeMessages = {
   503: 'Service Unavailable',
   504: 'Gateway Timeout',
 };
+
+export const DB = db;

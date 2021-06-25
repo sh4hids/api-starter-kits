@@ -2,20 +2,21 @@ import { statusCodes, statusCodeMessages } from '../config';
 
 async function responseHandler(ctx, next) {
   try {
-    ctx.response.success = (data, statusCode) => {
+    ctx.response.success = (data, statusCode, message) => {
       ctx.status = statusCodes.OK;
       ctx.body = {
         statusCode,
         data,
-        message: statusCodeMessages[statusCode],
+        message: message || statusCodeMessages[statusCode],
       };
     };
 
-    ctx.response.error = (errors = null, statusCode = 500) => {
+    ctx.response.error = (errors = null, statusCode = 500, message) => {
+      ctx.log.error(errors);
       const error = {
         statusCode,
         errors,
-        message: statusCodeMessages[statusCode],
+        message: message || statusCodeMessages[statusCode],
       };
       throw error;
     };
