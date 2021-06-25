@@ -18,7 +18,6 @@ app.use(koaBody());
 app.use(requestId());
 app.use(logger);
 app.use(cors({ origin: '*' }));
-// app.use(errorHandler);
 app.use(responseHandler);
 
 app.use(router.routes());

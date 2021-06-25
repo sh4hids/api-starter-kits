@@ -1,7 +1,7 @@
 import pino, { stdTimeFunctions } from 'pino';
 import { v4 as uuidV4 } from 'uuid';
 
-import { appEnv, logLevel, loggerName } from './variables';
+import { appEnv, logLevel, loggerName } from './config';
 
 const baseOptions = {
   name: loggerName,
@@ -16,11 +16,12 @@ const baseOptions = {
   },
 };
 
-const devOptions = Object.assign(
-  { prettyPrint: { levelFirst: true } },
-  baseOptions
-);
-const prodOptions = Object.assign({}, baseOptions);
+const devOptions = {
+  ...baseOptions,
+  prettyPrint: { levelFirst: true },
+};
+
+const prodOptions = { ...baseOptions };
 
 export const logOptions =
   appEnv === 'production' ? { ...prodOptions } : { ...devOptions };
