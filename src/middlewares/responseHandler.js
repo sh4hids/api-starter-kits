@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { statusCodes, statusCodeMessages } from '../config';
 
 async function responseHandler(ctx, next) {
