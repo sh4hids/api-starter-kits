@@ -22,6 +22,17 @@ async function responseHandler(ctx, next) {
     };
 
     await next();
+
+    if (!ctx.body && (!ctx.status || ctx.status === 404)) {
+      ctx.status = 404;
+      ctx.body = {
+        statusCode: 404,
+        error: 'Not Found',
+        message: 'Not Found',
+      };
+
+      return ctx.body;
+    }
   } catch (error) {
     const statusCode = error.status || error.statusCode || 500;
     const message = error.message || 'Internal Server Error';
