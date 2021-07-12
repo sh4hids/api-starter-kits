@@ -17,7 +17,8 @@
     "test": "jest src",
     "test:watch": "jest src --watch",
     "validate": "npm-run-all --parallel check-format lint test build",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "prepare": "husky install"
   },
   "author": "Shahidul Islam Majumder <hello@shahid.pro>",
   "license": "MIT",
