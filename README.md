@@ -28,6 +28,12 @@ cp .env.dev .env
 npm i
 ```
 
+### Add git hook
+
+```bash
+npm run prepare
+```
+
 ### Start dev server
 
 ```bash
