@@ -1,4 +1,4 @@
-import toBoolean from '../toBoolean';
+import toBoolean from '../../src/helpers/toBoolean';
 
 describe('# toBoolean', () => {
   const truthyInputs = ['true', true, 1, '1', 'yes', 'Yes', 'Y', 'y'];

@@ -14,8 +14,8 @@
     "prettier": "prettier --ignore-path .gitignore \"**/*.+(js|json)\"",
     "format": "npm run prettier -- --write",
     "check-format": "npm run prettier -- --list-different",
-    "test": "jest src",
-    "test:watch": "jest src --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "validate": "npm-run-all --parallel check-format lint test build",
     "lint-staged": "lint-staged",
     "prepare": "husky install"
