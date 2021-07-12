@@ -1,2 +1,3 @@
-export { default as stringifySafe } from './stringifySafe';
+/* eslint-disable import/prefer-default-export */
+
 export { default as toBoolean } from './toBoolean';
