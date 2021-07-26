@@ -1,4 +1,6 @@
-export default function toBoolean(value) {
+type UserInput = number | string | boolean;
+
+export default function toBoolean(value: UserInput): boolean {
   const input = `${value}`.toLowerCase();
 
   if (input === 'true' || input === '1' || input === 'yes' || input === 'y') {
