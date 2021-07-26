@@ -1,4 +1,11 @@
 module.exports = {
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
+  },
   env: {
     browser: true,
     es2021: true,
@@ -16,7 +23,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: '**/*.+(ts)',
+      files: '**/*.+(ts|tsx)',
       parser: '@typescript-eslint/parser',
       parserOptions: {
         project: './tsconfig.json',
@@ -27,6 +34,18 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'prettier',
       ],
+      rules: {
+        'import/extensions': [
+          'error',
+          'ignorePackages',
+          {
+            js: 'never',
+            jsx: 'never',
+            ts: 'never',
+            tsx: 'never',
+          },
+        ],
+      },
     },
   ],
 };

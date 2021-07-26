@@ -9,9 +9,9 @@
   "scripts": {
     "start": "node build/index.js",
     "dev": "nodemon dev.js",
-    "build": "babel --delete-dir-on-start --out-dir build --copy-files --ignore \"**/__tests__/**,**/__mocks__/**\" --no-copy-ignored --extensions .js,.ts src",
-    "lint": "eslint --ignore-path .gitignore --ext .js,.ts .",
-    "prettier": "prettier --ignore-path .gitignore \"**/*.+(js|json|ts)\"",
+    "build": "babel --delete-dir-on-start --out-dir build --copy-files --ignore \"**/__tests__/**,**/__mocks__/**\" --no-copy-ignored --extensions .js,.ts,.tsx src",
+    "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
+    "prettier": "prettier --ignore-path .gitignore \"**/*.+(js|jsx|json|ts|tsx)\"",
     "format": "npm run prettier -- --write",
     "check-types": "tsc",
     "check-format": "npm run prettier -- --list-different",
