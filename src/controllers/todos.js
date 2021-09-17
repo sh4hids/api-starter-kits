@@ -1,51 +1,57 @@
-import * as Todo from '../models/Todo';
+import models from '../models';
+
+const { Todo } = models;
 
 async function create(ctx) {
-  try {
-    const data = ctx.request.body;
+  const data = ctx.request.body;
 
-    const task = await Todo.create(data);
+  const task = await Todo.create(data);
 
-    ctx.response.success(task, 201, 'Task created successfully');
-  } catch (error) {
-    ctx.response.error(error);
-  }
+  ctx.response.success({
+    data: task,
+    status: 201,
+    message: 'Task created successfully',
+  });
 }
 
 async function getById(ctx) {
-  try {
-    const { id } = ctx.request.params;
+  const { id } = ctx.request.params;
 
-    const task = await Todo.getById(id);
+  const task = await Todo.findOne({
+    where: {
+      id,
+    },
+  });
 
-    ctx.response.success(task, 200, 'Task fetched successfully');
-  } catch (error) {
-    ctx.response.error(error);
+  if (!task) {
+    ctx.throw(404, 'Task not found');
   }
+
+  ctx.response.success({
+    data: task,
+    message: 'Task fetched successfully',
+  });
 }
 
 async function getAll(ctx) {
-  try {
-    const { id } = ctx.request.body;
+  const tasks = await Todo.findAll();
 
-    const task = await Todo.getAll({ id });
-
-    ctx.response.success(task, 200, 'Tasks fetched successfully');
-  } catch (error) {
-    ctx.response.error(error);
-  }
+  ctx.response.success({
+    data: tasks,
+    message: 'Tasks fetched successfully',
+  });
 }
 
 async function remove(ctx) {
-  try {
-    const { id } = ctx.request.params;
+  const { id } = ctx.request.params;
 
-    const task = await Todo.remove(id);
+  await Todo.destroy({ where: { id } });
 
-    ctx.response.success(task, 200, 'Task deleted successfully');
-  } catch (error) {
-    ctx.response.error(error);
-  }
+  ctx.response.success({
+    data: null,
+    status: 204,
+    message: 'Task deleted successfully',
+  });
 }
 
 export { create, getById, getAll, remove };

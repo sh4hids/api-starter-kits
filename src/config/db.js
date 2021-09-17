@@ -1,58 +1,21 @@
-let tasks = [];
+require('dotenv').config();
 
-function insert(data) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      tasks.push(data);
-      resolve(data);
-    }, 100);
-  });
-}
+const config = {
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  host: process.env.DB_HOST,
+  dialect: process.DB_DIALECT || 'mysql',
+};
 
-function update(id, data) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const index = tasks.findIndex((task) => task.id === id);
-      if (index > -1) {
-        tasks[index] = {
-          ...tasks[index],
-          ...data,
-        };
-        resolve(tasks[index]);
-      } else {
-        reject(new Error('Invalid id'));
-      }
-    }, 100);
-  });
-}
-
-function findById(id) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const data = tasks.find((task) => task.id === id);
-      resolve(data);
-    }, 100);
-  });
-}
-
-function find(query = {}) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const result = query.id
-        ? tasks.filter((task) => task.id === query.id)
-        : tasks;
-      resolve(result);
-    }, 100);
-  });
-}
-
-function remove(id) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      tasks = tasks.filter((task) => task.id !== id);
-      resolve(null);
-    }, 100);
-  });
-}
-
-export { insert, update, findById, find, remove };
+module.exports = {
+  development: {
+    ...config,
+  },
+  test: {
+    ...config,
+  },
+  production: {
+    ...config,
+  },
+};

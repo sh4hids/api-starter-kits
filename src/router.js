@@ -10,7 +10,7 @@ router.get('/todos', todosController.getAll);
 router.delete('/todos/:id', todosController.remove);
 
 router.get('/ping', (ctx) => {
-  ctx.response.success('pong', 200);
+  ctx.response.success({ data: 'pong', status: 200 });
 });
 
 export default router;

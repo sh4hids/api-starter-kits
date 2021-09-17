@@ -1,39 +1,26 @@
-import { v4 as uuidV4 } from 'uuid';
+import { Model } from 'sequelize';
 
-import { DB } from '../config';
-
-async function create(data = {}) {
-  const now = new Date().toISOString();
-  const id = uuidV4();
-
-  const taskData = {
-    ...data,
-    id,
-    createdAt: now,
-    updatedAt: now,
-  };
-
-  const task = await DB.insert(taskData);
-
-  return task;
-}
-
-async function getById(id) {
-  const task = (await DB.findById(id)) || null;
-
-  return task;
-}
-
-async function getAll(query) {
-  const task = await DB.find(query);
-
-  return task;
-}
-
-async function remove(id) {
-  await DB.remove(id);
-
-  return null;
-}
-
-export { create, getById, getAll, remove };
+export default (sequelize, DataTypes) => {
+  class Todo extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    // eslint-disable-next-line no-unused-vars
+    static associate(models) {
+      // define association here
+    }
+  }
+  Todo.init(
+    {
+      task: DataTypes.STRING,
+      isCompleted: DataTypes.BOOLEAN,
+    },
+    {
+      sequelize,
+      modelName: 'Todo',
+    }
+  );
+  return Todo;
+};
