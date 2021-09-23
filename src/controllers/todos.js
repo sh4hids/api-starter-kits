@@ -1,13 +1,9 @@
-import { validate } from '../helpers';
 import models from '../models';
-import { TodoSchema } from '../models/Todo';
 
 const { Todo } = models;
 
 async function create(ctx) {
-  const values = validate(TodoSchema, ctx);
-
-  const task = await Todo.create(values);
+  const task = await Todo.create(ctx.request.body);
 
   ctx.response.success({
     data: task,
@@ -32,6 +28,28 @@ async function getById(ctx) {
   ctx.response.success({
     data: task,
     message: 'Task fetched successfully',
+  });
+}
+
+async function update(ctx) {
+  const { id } = ctx.request.params;
+
+  let task = await Todo.findOne({
+    where: {
+      id,
+    },
+  });
+
+  if (!task) {
+    ctx.throw(404, 'Task not found');
+  }
+
+  task = await task.update(ctx.request.body);
+
+  ctx.response.success({
+    data: task,
+    status: 200,
+    message: 'Task updated successfully',
   });
 }
 
@@ -66,4 +84,4 @@ async function remove(ctx) {
   });
 }
 
-export { create, getById, getAll, remove };
+export { create, getById, update, getAll, remove };
