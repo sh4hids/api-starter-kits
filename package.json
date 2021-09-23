@@ -4,7 +4,7 @@
   "description": "A koa starter kit",
   "main": "index.js",
   "engines": {
-    "node": "14.17.0"
+    "node": "14"
   },
   "scripts": {
     "start": "node build/index.js",

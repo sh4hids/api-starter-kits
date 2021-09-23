@@ -45,6 +45,16 @@ async function getAll(ctx) {
 async function remove(ctx) {
   const { id } = ctx.request.params;
 
+  const task = await Todo.findOne({
+    where: {
+      id,
+    },
+  });
+
+  if (!task) {
+    ctx.throw(404, 'Task not found');
+  }
+
   await Todo.destroy({ where: { id } });
 
   ctx.response.success({
