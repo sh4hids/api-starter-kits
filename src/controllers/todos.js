@@ -1,11 +1,13 @@
+import { validate } from '../helpers';
 import models from '../models';
+import { TodoSchema } from '../models/Todo';
 
 const { Todo } = models;
 
 async function create(ctx) {
-  const data = ctx.request.body;
+  const values = validate(TodoSchema, ctx);
 
-  const task = await Todo.create(data);
+  const task = await Todo.create(values);
 
   ctx.response.success({
     data: task,

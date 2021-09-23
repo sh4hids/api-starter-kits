@@ -21,7 +21,10 @@ async function responseHandler(ctx, next) {
     }
   } catch (error) {
     ctx.status = error.status || 500;
-    ctx.body = error.message || 'Internal Server Error';
+    ctx.body = {
+      message: error.message || 'Internal Server Error',
+      ...(error.errors && { errors: error.errors }),
+    };
   }
 }
 

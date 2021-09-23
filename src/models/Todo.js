@@ -1,4 +1,10 @@
+import Joi from 'joi';
 import { Model } from 'sequelize';
+
+export const TodoSchema = Joi.object({
+  task: Joi.string().trim().required(),
+  isCompleted: Joi.boolean().required(),
+});
 
 export default (sequelize, DataTypes) => {
   class Todo extends Model {
